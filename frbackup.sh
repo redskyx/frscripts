@@ -1,6 +1,7 @@
 #!/bin/bash
+# Cheeky backups for light apps with no cron or backups, sorry!
 
-apparray=(apps)
+apparray=(app1 app2 app3)
 for i in ${apparray[@]}
 do 
 echo "--==Backing up $i==--"
