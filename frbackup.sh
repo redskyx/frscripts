@@ -1,12 +1,24 @@
-#!/bin/bash
-# Cheeky backups for light apps with no cron or backups, sorry!
+# Hack to allow ad hoc backups
+if [ -n "$1" ]
+then
+apparray=($1);
+else
+apparray=()
+fi
 
-apparray=(app1 app2 app3)
+DOW=$(date +%u)
+# If we try to run on tues or thursday bump back a day
+if [ $((DOW%2)) -eq 0 ];
+then
+	DOW=$(($DOW-1));
+else
+	DOW=$DOW;
+fi
 for i in ${apparray[@]}
 do 
-echo "--==Backing up $i==--"
-DROPBOXDIR="$HOME/BACKUPS/"
-if [ ! -d "$DROPBOXDIR/$i" ]; then
+echo "--==Backing up $i to Backup $DOW==--"
+DROPBOXDIR="$HOME/Dropbox (redsky)/Team Redsky/Websites/FortrabbitBackups/$DOW/"
+if [ ! -d "$DROPBOXDIR$i" ]; then
 mkdir "$DROPBOXDIR$i"
 fi 
 PASS=$(ssh $(echo $i)@deploy.eu2.frbit.com printenv MYSQL_PASSWORD)
