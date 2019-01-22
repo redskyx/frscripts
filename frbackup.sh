@@ -5,9 +5,8 @@ apparray=($1);
 else
 apparray=()
 fi
-
 DOW=$(date +%u)
-# If we try to run on tues or thursday bump back a day
+# If we try to run on tues or thursday bump back a day because dropbox can't cope with 5 days syncing
 if [ $((DOW%2)) -eq 0 ];
 then
 	DOW=$(($DOW-1));
